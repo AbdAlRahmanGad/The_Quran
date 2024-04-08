@@ -5,7 +5,7 @@ import 'package:the_quran/model/authentication_model.dart';
 class SignUpScreen extends StatelessWidget {
   final AuthenticationController authController;
 
-  SignUpScreen({required this.authController});
+  const SignUpScreen({super.key, required this.authController});
 
   @override
   Widget build(BuildContext context) {
@@ -14,15 +14,15 @@ class SignUpScreen extends StatelessWidget {
 
     return Scaffold(
       appBar: AppBar(
-        title: Text('Sign Up'),
+        title: const Text('Sign Up'),
       ),
       body: Padding(
-        padding: EdgeInsets.all(16),
+        padding: const EdgeInsets.all(16),
         child: Column(
           children: [
             TextFormField(
               controller: emailController,
-              decoration: InputDecoration(labelText: 'Email'),
+              decoration: const InputDecoration(labelText: 'Email'),
               validator: (value) {
                 if (value == null || value.isEmpty) {
                   return 'Please enter your email';
@@ -36,7 +36,7 @@ class SignUpScreen extends StatelessWidget {
             ),
             TextFormField(
               controller: passwordController,
-              decoration: InputDecoration(labelText: 'Password'),
+              decoration: const InputDecoration(labelText: 'Password'),
               obscureText: true,
               validator: (value) {
                 if (value == null || value.isEmpty) {
@@ -53,7 +53,7 @@ class SignUpScreen extends StatelessWidget {
                 return null;
               },
             ),
-            SizedBox(height: 20),
+            const SizedBox(height: 20),
             ElevatedButton(
               onPressed: () async {
                 if (emailController.text.isNotEmpty &&
@@ -74,7 +74,7 @@ class SignUpScreen extends StatelessWidget {
                   }
                 }
               },
-              child: Text('Sign Up'),
+              child: const Text('Sign Up'),
             ),
           ],
         ),

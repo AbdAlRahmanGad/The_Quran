@@ -4,7 +4,7 @@ import 'package:the_quran/controller/authentication_controller.dart';
 class ForgotPasswordScreen extends StatelessWidget {
   final AuthenticationController authController;
 
-  ForgotPasswordScreen({required this.authController});
+  const ForgotPasswordScreen({super.key, required this.authController});
 
   @override
   Widget build(BuildContext context) {
@@ -12,15 +12,15 @@ class ForgotPasswordScreen extends StatelessWidget {
 
     return Scaffold(
       appBar: AppBar(
-        title: Text('Forgot Password'),
+        title: const Text('Forgot Password'),
       ),
       body: Padding(
-        padding: EdgeInsets.all(16),
+        padding: const EdgeInsets.all(16),
         child: Column(
           children: [
             TextFormField(
               controller: emailController,
-              decoration: InputDecoration(labelText: 'Email'),
+              decoration: const InputDecoration(labelText: 'Email'),
               validator: (value) {
                 if (value == null || value.isEmpty) {
                   return 'Please enter your email';
@@ -32,7 +32,7 @@ class ForgotPasswordScreen extends StatelessWidget {
                 return null;
               },
             ),
-            SizedBox(height: 20),
+            const SizedBox(height: 20),
             ElevatedButton(
               onPressed: () async {
                 if (emailController.text.isNotEmpty) {
@@ -40,7 +40,7 @@ class ForgotPasswordScreen extends StatelessWidget {
                     await authController
                         .resetPassword(emailController.text.trim());
                     ScaffoldMessenger.of(context).showSnackBar(
-                      SnackBar(
+                      const SnackBar(
                         content: Text(
                             'Password reset email sent. Please check your inbox.'),
                       ),
@@ -54,7 +54,7 @@ class ForgotPasswordScreen extends StatelessWidget {
                   }
                 }
               },
-              child: Text('Reset Password'),
+              child: const Text('Reset Password'),
             ),
           ],
         ),

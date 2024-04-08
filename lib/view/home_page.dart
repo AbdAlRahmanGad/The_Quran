@@ -5,23 +5,23 @@ import 'package:the_quran/view/login_screen.dart';
 class HomePage extends StatelessWidget {
   final AuthenticationController authController;
 
-  HomePage({required this.authController});
+  const HomePage({super.key, required this.authController});
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Home Page'),
+        title: const Text('Home Page'),
       ),
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Text(
+            const Text(
               'Welcome to the Home Page!',
               style: TextStyle(fontSize: 24),
             ),
-            SizedBox(height: 20),
+            const SizedBox(height: 20),
             ElevatedButton(
               onPressed: () async {
                 try {
@@ -40,7 +40,7 @@ class HomePage extends StatelessWidget {
                   );
                 }
               },
-              child: Text('Log Out'),
+              child: const Text('Log Out'),
             ),
           ],
         ),
