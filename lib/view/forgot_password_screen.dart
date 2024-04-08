@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:task/controllers/authentication_controller.dart';
+import 'package:the_quran/controller/authentication_controller.dart';
 
 class ForgotPasswordScreen extends StatelessWidget {
   final AuthenticationController authController;

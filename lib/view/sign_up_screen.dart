@@ -1,14 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:task/controllers/authentication_controller.dart';
-import 'package:task/models/authentication_model.dart';
-import 'package:task/screens/home_page.dart';
-import 'package:task/screens/forgot_password_screen.dart';
-import 'package:task/screens/sign_up_screen.dart';
+import 'package:the_quran/controller/authentication_controller.dart';
+import 'package:the_quran/model/authentication_model.dart';
 
-class LoginScreen extends StatelessWidget {
+class SignUpScreen extends StatelessWidget {
   final AuthenticationController authController;
 
-  LoginScreen({required this.authController});
+  SignUpScreen({required this.authController});
 
   @override
   Widget build(BuildContext context) {
@@ -17,7 +14,7 @@ class LoginScreen extends StatelessWidget {
 
     return Scaffold(
       appBar: AppBar(
-        title: Text('Log In'),
+        title: Text('Sign Up'),
       ),
       body: Padding(
         padding: EdgeInsets.all(16),
@@ -61,20 +58,13 @@ class LoginScreen extends StatelessWidget {
               onPressed: () async {
                 if (emailController.text.isNotEmpty &&
                     passwordController.text.isNotEmpty) {
-                  AuthenticationModel authModel = AuthenticationModel(
-                    email: emailController.text.trim(),
-                    password: passwordController.text.trim(),
-                  );
                   try {
-                    await authController.login(
-                        authModel.email, authModel.password);
-                    Navigator.pushReplacement(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) => HomePage(
-                                authController: authController,
-                              )),
+                    AuthenticationModel authModel = AuthenticationModel(
+                      email: emailController.text.trim(),
+                      password: passwordController.text.trim(),
                     );
+                    await authController.signUp(
+                        authModel.email, authModel.password);
                   } catch (e) {
                     ScaffoldMessenger.of(context).showSnackBar(
                       SnackBar(
@@ -84,29 +74,7 @@ class LoginScreen extends StatelessWidget {
                   }
                 }
               },
-              child: Text('Log In'),
-            ),
-            TextButton(
-              onPressed: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                      builder: (context) =>
-                          SignUpScreen(authController: authController)),
-                );
-              },
-              child: Text('Don\'t have an account? Sign Up'),
-            ),
-            TextButton(
-              onPressed: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                      builder: (context) =>
-                          ForgotPasswordScreen(authController: authController)),
-                );
-              },
-              child: Text('Forgot Password?'),
+              child: Text('Sign Up'),
             ),
           ],
         ),

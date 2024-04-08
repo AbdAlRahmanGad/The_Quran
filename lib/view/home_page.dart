@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:task/controllers/authentication_controller.dart';
-import 'package:task/screens/login_screen.dart';
+import 'package:the_quran/controller/authentication_controller.dart';
+import 'package:the_quran/view/login_screen.dart';
 
 class HomePage extends StatelessWidget {
   final AuthenticationController authController;
