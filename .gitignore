@@ -54,3 +54,4 @@ coverage/*
 installers/*
 .metadata
 .fvm/
+.env
