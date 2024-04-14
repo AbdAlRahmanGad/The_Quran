@@ -5,99 +5,108 @@ class OnBoadrding extends StatefulWidget {
   const OnBoadrding({super.key});
 
   @override
-  State<OnBoadrding> createState() => _OnBoadrdingState();
+  State<OnBoadrding> createState() => _OnBoardingState();
 }
 
-class _OnBoadrdingState extends State<OnBoadrding> {
-  final PageController _pageController = PageController();
-  int _currentPage = 0;
+class _OnBoardingState extends State<OnBoadrding> {
+  late PageController _pageController;
+
+  @override
+  void initState() {
+    super.initState();
+    _pageController = PageController();
+  }
+
+  @override
+  void dispose() {
+    _pageController.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
+
     return Scaffold(
-      body: Stack(
-        children: [
-          PageView(
-            controller: _pageController,
-            onPageChanged: (int page) {
-              setState(() {
-                _currentPage = page;
-              });
-            },
-            children: [
-              _buildPage(
-                title: 'Welcome to MyApp',
-                description:
-                    'Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
-                image: 'assets/images/1.png',
-              ),
-              _buildPage(
-                title: 'Explore Features',
-                description:
-                    'Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
-                image: 'assets/images/2.png',
-              ),
-              _buildPage(
-                title: 'Get Started',
-                description:
-                    'Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
-                image: 'assets/images/3.png',
+      body: PageView(
+        controller: _pageController,
+        children: <Widget>[
+          Stack(
+            children: <Widget>[
+              Image.asset('assets/page_1.png', fit: BoxFit.cover),
+              Align(
+                alignment: Alignment.bottomCenter,
+                child: ElevatedButton(
+                  style: ButtonStyle(
+                    backgroundColor: MaterialStateProperty.all<Color>(const Color(0xFF87D1A4)),
+                    shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                      RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(30.0),
+                      ),
+                    ),
+                  ),
+                  onPressed: () {
+                    // go to next page
+                    _pageController.nextPage(
+                      duration: const Duration(milliseconds: 500),
+                      curve: Curves.ease,
+                    );
+                  },
+                  child: const Text('Next'),
+                ),
               ),
             ],
           ),
-          Positioned(
-            bottom: 30,
-            left: 0,
-            right: 0,
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: _buildPageIndicator(),
-            ),
+          Stack(
+            children: <Widget>[
+              Image.asset('assets/page_2.png', fit: BoxFit.cover),
+              Align(
+                alignment: Alignment.bottomCenter,
+                child: ElevatedButton(
+                  style: ButtonStyle(
+                    backgroundColor: MaterialStateProperty.all<Color>(const Color(0xFF87D1A4)),
+                    shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                      RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(30.0),
+                      ),
+                    ),
+                  ),
+                  onPressed: () {
+                    // go to next page
+                    _pageController.nextPage(
+                      duration: const Duration(milliseconds: 500),
+                      curve: Curves.ease,
+                    );
+                  },
+                  child: const Text('Next'),
+                ),
+              ),
+            ],
+          ),
+          Stack(
+            children: <Widget>[
+              Image.asset('assets/page_3.png', fit: BoxFit.cover),
+              Align(
+                alignment: Alignment.bottomCenter,
+                child: ElevatedButton(
+                  style: ButtonStyle(
+                    backgroundColor: MaterialStateProperty.all<Color>(const Color(0xFF87D1A4)),
+                    shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                      RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(30.0),
+                      ),
+                    ),
+                  ),
+                  onPressed: () {
+                    // TODO go to home page
+
+                  },
+                  child: const Text('Start'),
+                ),
+              ),
+            ],
           ),
         ],
       ),
     );
-  }
-
-  Widget _buildPage(
-      {required String title,
-      required String description,
-      required String image}) {
-    return Container(
-      padding: EdgeInsets.all(20),
-      alignment: Alignment.center,
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        crossAxisAlignment: CrossAxisAlignment.center,
-        children: [
-          Text(
-            title,
-            style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
-            textAlign: TextAlign.center,
-          ),
-          SizedBox(height: 20),
-          Text(
-            description,
-            style: TextStyle(fontSize: 16),
-            textAlign: TextAlign.center,
-          ),
-          SizedBox(height: 20),
-          Image.asset(
-            image,
-            height: 200,
-          ),
-        ],
-      ),
-    );
-  }
-
-  List<Widget> _buildPageIndicator() {
-    List<Widget> indicators = [];
-    for (int i = 0; i < 3; i++) {
-      indicators.add(
-        i == _currentPage ? indicator(true) : indicator(false),
-      );
-    }
-    return indicators;
   }
 }
