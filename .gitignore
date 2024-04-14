@@ -54,3 +54,6 @@ coverage/*
 installers/*
 .metadata
 .fvm/
+.env
+pubspec.lock
+

@@ -1,19 +1,19 @@
-// main.dart
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:the_quran/features/auth/controller/bloc/auth_controller_bloc.dart';
 import 'package:the_quran/features/auth/view/page/forgot_password_screen.dart';
 import 'package:the_quran/features/auth/view/page/home_page.dart';
 import 'package:the_quran/features/auth/view/page/login_screen.dart';
 import 'package:the_quran/features/auth/view/page/on_boarding.dart';
 import 'package:the_quran/features/auth/view/page/sign_up_screen.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:the_quran/firebase_options.dart';
 
 late final SharedPreferences prefs;
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  await dotenv.load(fileName: '.env');
   await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
   prefs = await SharedPreferences.getInstance();
   runApp(MyApp());
@@ -22,6 +22,7 @@ void main() async {
 class MyApp extends StatelessWidget {
   bool onBoadrding = prefs.getBool('onBoadrding') ?? true;
 
+  MyApp({super.key});
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
