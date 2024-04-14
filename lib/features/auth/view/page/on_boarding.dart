@@ -2,27 +2,16 @@ import 'package:flutter/material.dart';
 import 'package:the_quran/features/auth/view/components/indicator_wirdget.dart';
 import 'package:the_quran/features/auth/view/page/login_screen.dart';
 
-class OnBoadrding extends StatefulWidget {
-  const OnBoadrding({super.key});
+class OnBoarding extends StatefulWidget {
+  const OnBoarding({super.key});
 
   @override
-  State<OnBoadrding> createState() => _OnBoardingState();
+  State<OnBoarding> createState() => _OnBoardingState();
 }
 
-class _OnBoardingState extends State<OnBoadrding> {
-  late PageController _pageController;
-
-  @override
-  void initState() {
-    super.initState();
-    _pageController = PageController();
-  }
-
-  @override
-  void dispose() {
-    _pageController.dispose();
-    super.dispose();
-  }
+class _OnBoardingState extends State<OnBoarding> {
+  final PageController _pageController = PageController();
+  int _currentPage = 0;
 
   @override
   Widget build(BuildContext context) {

@@ -5,7 +5,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:the_quran/core/utils/validation.dart';
 import 'package:the_quran/features/auth/controller/bloc/auth_controller_bloc.dart';
-import 'package:the_quran/features/auth/view/page/home_page.dart';
 
 class SignUpScreen extends StatelessWidget {
   const SignUpScreen({
@@ -49,7 +48,7 @@ class SignUpScreen extends StatelessWidget {
                   ).show();
                 });
               } else if (state is AuthControllerFailureState) {
-                log("Failded");
+                log("Failed");
                 WidgetsBinding.instance.addPostFrameCallback((_) {
                   AwesomeDialog(
                     context: context,
@@ -64,7 +63,7 @@ class SignUpScreen extends StatelessWidget {
               }
               AuthControllerBloc bloc = context.read<AuthControllerBloc>();
               return Form(
-                key: bloc.formkey,
+                key: bloc.formKey,
                 child: Column(
                   children: [
                     TextFormField(

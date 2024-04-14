@@ -46,7 +46,7 @@ class LoginScreen extends StatelessWidget {
                   );
                 });
               } else if (state is AuthControllerFailureState) {
-                log("Failded");
+                log("Failed");
                 WidgetsBinding.instance.addPostFrameCallback((_) {
                   AwesomeDialog(
                     context: context,
@@ -61,7 +61,7 @@ class LoginScreen extends StatelessWidget {
               }
               AuthControllerBloc bloc = context.read<AuthControllerBloc>();
               return Form(
-                key: bloc.formkey,
+                key: bloc.formKey,
                 child: Column(
                   children: [
                     TextFormField(

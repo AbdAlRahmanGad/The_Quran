@@ -1,5 +1,4 @@
 import 'dart:developer';
-import 'dart:ffi';
 import 'package:bloc/bloc.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
@@ -18,13 +17,13 @@ class AuthControllerBloc
   TextEditingController emailController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
 
-  GlobalKey<FormState> formkey = GlobalKey<FormState>();
+  GlobalKey<FormState> formKey = GlobalKey<FormState>();
 
   AuthControllerBloc({this.onSignSuccess = _defaultOnSignSuccess}) : super(AuthControllerInitialState()) {
     on<AuthControllerEvent>((event, emit) {});
 
     on<SignUp>((event, emit) async {
-      if (formkey.currentState!.validate()) {
+      if (formKey.currentState!.validate()) {
         emit(const AuthControllerLoadingState(isLoading: true));
         try {
           final UserModel? user =
@@ -42,7 +41,7 @@ class AuthControllerBloc
     });
 
     on<Login>((event, emit) async {
-      if (formkey.currentState!.validate()) {
+      if (formKey.currentState!.validate()) {
         emit(const AuthControllerLoadingState(isLoading: true));
 
         try {
@@ -70,7 +69,7 @@ class AuthControllerBloc
     });
 
     on<ForgetPass>((event, emit) async {
-      if (formkey.currentState!.validate()) {
+      if (formKey.currentState!.validate()) {
         emit(const AuthControllerLoadingState(isLoading: true));
         try {
           authService.resetPassword(event.email);
