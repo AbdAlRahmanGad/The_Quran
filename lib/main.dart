@@ -8,7 +8,7 @@ import 'package:the_quran/features/auth/view/page/login_screen.dart';
 import 'package:the_quran/features/auth/view/page/on_boarding.dart';
 import 'package:the_quran/features/auth/view/page/sign_up_screen.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
-import 'package:the_quran/firebase_options.dart';
+import 'package:the_quran/core/utils/firebase_options.dart';
 
 late final SharedPreferences prefs;
 void main() async {
@@ -20,7 +20,7 @@ void main() async {
 }
 
 class MyApp extends StatelessWidget {
-  bool onBoadrding = prefs.getBool('onBoadrding') ?? true;
+  bool onBoarding = prefs.getBool('onBoarding') ?? true;
 
   MyApp({super.key});
   @override
@@ -39,7 +39,7 @@ class MyApp extends StatelessWidget {
             if (snapshot.hasData) {
               return const HomePage();
             } else {
-              if (onBoadrding) return const OnBoadrding();
+              if (onBoarding) return const OnBoadrding();
               return const LoginScreen();
             }
           },

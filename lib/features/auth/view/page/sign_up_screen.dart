@@ -5,7 +5,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:the_quran/core/utils/validation.dart';
 import 'package:the_quran/features/auth/controller/bloc/auth_controller_bloc.dart';
-import 'package:the_quran/features/auth/view/page/home_page.dart';
 
 class SignUpScreen extends StatelessWidget {
   const SignUpScreen({
