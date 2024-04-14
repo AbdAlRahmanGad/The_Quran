@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:the_quran/features/auth/view/components/indicator_wirdget.dart';
+import 'package:the_quran/features/auth/view/page/sign_up_screen.dart';
 
 class OnBoadrding extends StatefulWidget {
   const OnBoadrding({super.key});
@@ -98,7 +99,10 @@ class _OnBoardingState extends State<OnBoadrding> {
                   ),
                   onPressed: () {
                     // TODO go to home page
-
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (context) => const SignUpScreen()),
+                    );
                   },
                   child: const Text('Start'),
                 ),
