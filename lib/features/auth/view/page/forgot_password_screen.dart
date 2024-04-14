@@ -39,7 +39,7 @@ class ForgotPasswordScreen extends StatelessWidget {
                   ).show();
                 });
               } else if (state is AuthControllerFailureState) {
-                log("Failded");
+                log("Failed");
                 WidgetsBinding.instance.addPostFrameCallback((_) {
                   AwesomeDialog(
                     context: context,
@@ -56,7 +56,7 @@ class ForgotPasswordScreen extends StatelessWidget {
               return Column(
                 children: [
                   Form(
-                    key: bloc.formkey,
+                    key: bloc.formKey,
                     child: TextFormField(
                       autovalidateMode: AutovalidateMode.onUserInteraction,
                       controller: bloc.emailController,

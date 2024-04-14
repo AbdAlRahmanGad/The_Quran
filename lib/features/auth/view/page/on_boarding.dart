@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:the_quran/features/auth/view/components/indicator_wirdget.dart';
 
-class OnBoadrding extends StatefulWidget {
-  const OnBoadrding({super.key});
+class OnBoarding extends StatefulWidget {
+  const OnBoarding({super.key});
 
   @override
-  State<OnBoadrding> createState() => _OnBoadrdingState();
+  State<OnBoarding> createState() => _OnBoardingState();
 }
 
-class _OnBoadrdingState extends State<OnBoadrding> {
+class _OnBoardingState extends State<OnBoarding> {
   final PageController _pageController = PageController();
   int _currentPage = 0;
 

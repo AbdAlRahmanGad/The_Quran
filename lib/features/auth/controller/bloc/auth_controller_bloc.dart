@@ -15,13 +15,13 @@ class AuthControllerBloc
   TextEditingController emailController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
 
-  GlobalKey<FormState> formkey = GlobalKey<FormState>();
+  GlobalKey<FormState> formKey = GlobalKey<FormState>();
 
   AuthControllerBloc() : super(AuthControllerInitialState()) {
     on<AuthControllerEvent>((event, emit) {});
 
     on<SignUp>((event, emit) async {
-      if (formkey.currentState!.validate()) {
+      if (formKey.currentState!.validate()) {
         emit(const AuthControllerLoadingState(isLoading: true));
         try {
           final UserModel? user =
@@ -38,7 +38,7 @@ class AuthControllerBloc
     });
 
     on<Login>((event, emit) async {
-      if (formkey.currentState!.validate()) {
+      if (formKey.currentState!.validate()) {
         emit(const AuthControllerLoadingState(isLoading: true));
 
         try {
@@ -65,7 +65,7 @@ class AuthControllerBloc
     });
 
     on<ForgetPass>((event, emit) async {
-      if (formkey.currentState!.validate()) {
+      if (formKey.currentState!.validate()) {
         emit(const AuthControllerLoadingState(isLoading: true));
         try {
           authService.resetPassword(event.email);
