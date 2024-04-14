@@ -4,6 +4,7 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:the_quran/core/utils/auth_service.dart';
 import 'package:the_quran/features/auth/model/user_model.dart';
+import 'package:the_quran/features/auth/view/page/home_page.dart';
 
 part 'auth_controller_event.dart';
 part 'auth_controller_state.dart';
@@ -11,13 +12,14 @@ part 'auth_controller_state.dart';
 class AuthControllerBloc
     extends Bloc<AuthControllerEvent, AuthControllerState> {
   final AuthService authService = AuthService();
+  final Function onSignSuccess;
 
   TextEditingController emailController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
 
   GlobalKey<FormState> formKey = GlobalKey<FormState>();
 
-  AuthControllerBloc() : super(AuthControllerInitialState()) {
+  AuthControllerBloc({this.onSignSuccess = _defaultOnSignSuccess}) : super(AuthControllerInitialState()) {
     on<AuthControllerEvent>((event, emit) {});
 
     on<SignUp>((event, emit) async {
@@ -28,6 +30,7 @@ class AuthControllerBloc
               await authService.signUp(event.email, event.password);
           if (user != null) {
             emit(const AuthControllerFeedbackState("Signed up successfully"));
+            onSignSuccess();
           } else {
             emit(const AuthControllerFailureState('create user failed'));
           }
@@ -46,6 +49,7 @@ class AuthControllerBloc
               await authService.login(event.email, event.password);
           if (user != null) {
             emit(AuthControllerSuccessState(user));
+            onSignSuccess();
           } else {
             emit(const AuthControllerFailureState('create user failed'));
           }
@@ -77,4 +81,6 @@ class AuthControllerBloc
       }
     });
   }
+
+  static void _defaultOnSignSuccess() {}
 }

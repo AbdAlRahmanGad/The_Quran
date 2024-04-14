@@ -20,7 +20,14 @@ class SignUpScreen extends StatelessWidget {
       body: Padding(
         padding: const EdgeInsets.all(16),
         child: BlocProvider(
-          create: (context) => AuthControllerBloc(),
+          create: (context) => AuthControllerBloc(
+            onSignSuccess: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => const HomePage()),
+              );
+            },
+          ),
           child: BlocBuilder<AuthControllerBloc, AuthControllerState>(
             builder: (context, state) {
               if (state is AuthControllerLoadingState &&
