@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:the_quran/features/auth/view/components/indicator_wirdget.dart';
+import 'package:the_quran/features/auth/view/components/indicator_widget.dart';
 import 'package:the_quran/features/auth/view/page/login_screen.dart';
 
 class OnBoarding extends StatefulWidget {
