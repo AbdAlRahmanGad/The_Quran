@@ -22,7 +22,7 @@ class _OnBoardingState extends State<OnBoarding> {
         children: <Widget>[
           Stack(
             children: <Widget>[
-              Image.asset('assets/page_1.png', fit: BoxFit.cover),
+              Image.asset('assets/images/page_1.png', fit: BoxFit.cover),
               Align(
                 alignment: Alignment.bottomCenter,
                 child: ElevatedButton(
@@ -48,7 +48,7 @@ class _OnBoardingState extends State<OnBoarding> {
           ),
           Stack(
             children: <Widget>[
-              Image.asset('assets/page_2.png', fit: BoxFit.cover),
+              Image.asset('assets/images/page_2.png', fit: BoxFit.cover),
               Align(
                 alignment: Alignment.bottomCenter,
                 child: ElevatedButton(
@@ -74,7 +74,7 @@ class _OnBoardingState extends State<OnBoarding> {
           ),
           Stack(
             children: <Widget>[
-              Image.asset('assets/page_3.png', fit: BoxFit.cover),
+              Image.asset('assets/images/page_3.png', fit: BoxFit.cover),
               Align(
                 alignment: Alignment.bottomCenter,
                 child: ElevatedButton(
