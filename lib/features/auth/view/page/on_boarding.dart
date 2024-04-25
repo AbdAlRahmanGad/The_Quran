@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:the_quran/features/auth/view/components/indicator_widget.dart';
 import 'package:the_quran/features/auth/view/page/login_screen.dart';
 
 class OnBoarding extends StatefulWidget {
@@ -11,7 +10,7 @@ class OnBoarding extends StatefulWidget {
 
 class _OnBoardingState extends State<OnBoarding> {
   final PageController _pageController = PageController();
-  int _currentPage = 0;
+  final int _currentPage = 0;
 
   @override
   Widget build(BuildContext context) {

@@ -4,7 +4,6 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:the_quran/core/utils/auth_service.dart';
 import 'package:the_quran/features/auth/model/user_model.dart';
-import 'package:the_quran/features/auth/view/page/home_page.dart';
 
 part 'auth_controller_event.dart';
 part 'auth_controller_state.dart';
