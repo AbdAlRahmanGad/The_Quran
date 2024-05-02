@@ -9,6 +9,7 @@ import 'package:the_quran/features/auth/view/page/on_boarding.dart';
 import 'package:the_quran/features/auth/view/page/sign_up_screen.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:the_quran/core/utils/firebase_options.dart';
+import 'package:the_quran/features/dashboard/view/page/dashboard_page.dart';
 
 late final SharedPreferences prefs;
 void main() async {
@@ -20,13 +21,13 @@ void main() async {
 }
 
 class MyApp extends StatelessWidget {
-  bool onBoarding = prefs.getBool('onBoarding') ?? true;
+  bool onBoarding = prefs.getBool('onBoarding') ?? false;
 
   MyApp({super.key});
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      onGenerateRoute: onGenerateRoute,
+      onGenerateRoute: MyRoutes.onGenerateRoute,
       debugShowCheckedModeBanner: false,
       title: 'The Quran',
       theme: ThemeData(
@@ -37,9 +38,9 @@ class MyApp extends StatelessWidget {
           stream: FirebaseAuth.instance.authStateChanges(),
           builder: (context, snapshot) {
             if (snapshot.hasData) {
-              return const HomePage();
+              return const DashbordPage();
             } else {
-              if (onBoarding) return const OnBoarding();
+              if (onBoarding) return const DashbordPage();
               return const LoginScreen();
             }
           },
@@ -49,15 +50,17 @@ class MyApp extends StatelessWidget {
   }
 }
 
-Route onGenerateRoute(RouteSettings settings) {
-  if (settings.name == "Login") {
-    return MaterialPageRoute(builder: (context) => const LoginScreen());
-  } else if (settings.name == "Sign Up") {
-    return MaterialPageRoute(builder: (context) => const SignUpScreen());
-  } else if (settings.name == "Forgot Password") {
-    return MaterialPageRoute(
-        builder: (context) => const ForgotPasswordScreen());
-  } else {
-    return MaterialPageRoute(builder: (context) => const HomePage());
+class MyRoutes {
+  static Route<dynamic> onGenerateRoute(RouteSettings settings) {
+    if (settings.name == "Login") {
+      return MaterialPageRoute(builder: (context) => const LoginScreen());
+    } else if (settings.name == "Sign Up") {
+      return MaterialPageRoute(builder: (context) => const SignUpScreen());
+    } else if (settings.name == "Forgot Password") {
+      return MaterialPageRoute(
+          builder: (context) => const ForgotPasswordScreen());
+    } else {
+      return MaterialPageRoute(builder: (context) => const DashbordPage());
+    }
   }
 }
