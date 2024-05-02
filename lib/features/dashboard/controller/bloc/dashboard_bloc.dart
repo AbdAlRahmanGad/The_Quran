@@ -28,9 +28,9 @@ class DashboardBloc extends Bloc<DashboardEvent, DashboardState> {
 
   DashboardBloc() : super(DashboardInitial()) {
     on<GetProfile>((event, emit) async {
-      emit(DashboardProfuleLoading());
+      emit(DashboardProfileLoading());
       final Profile p = await DatabaseHelper.instance.getProfile(user!.uid);
-      emit(DashboardProfuleLoaded(p));
+      emit(DashboardProfileLoaded(p));
     });
   }
 }

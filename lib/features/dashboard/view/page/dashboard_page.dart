@@ -15,7 +15,7 @@ class DashboardPage extends StatelessWidget {
           Profile p = Profile("", "", "");
           DashboardBloc controller = context.read<DashboardBloc>();
           controller.add(GetProfile());
-          if (state is DashboardProfuleLoaded) p = state.profile;
+          if (state is DashboardProfileLoaded) p = state.profile;
           return Scaffold(
             body: SafeArea(
               child: PageView(

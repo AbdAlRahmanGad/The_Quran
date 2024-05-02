@@ -5,10 +5,10 @@ sealed class DashboardState {}
 
 final class DashboardInitial extends DashboardState {}
 
-final class DashboardProfuleLoading extends DashboardState {}
+final class DashboardProfileLoading extends DashboardState {}
 
-final class DashboardProfuleLoaded extends DashboardState {
+final class DashboardProfileLoaded extends DashboardState {
   final Profile profile;
 
-  DashboardProfuleLoaded(this.profile);
+  DashboardProfileLoaded(this.profile);
 }
