@@ -1,7 +1,4 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
-import 'package:flutter/widgets.dart';
 import 'package:the_quran/features/auth/view/page/login_screen.dart';
 
 class OnBoarding extends StatefulWidget {
@@ -13,7 +10,6 @@ class OnBoarding extends StatefulWidget {
 
 class _OnBoardingState extends State<OnBoarding> {
   final PageController _pageController = PageController();
-  final int _currentPage = 0;
 
   @override
   Widget build(BuildContext context) {

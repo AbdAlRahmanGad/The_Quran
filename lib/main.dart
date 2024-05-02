@@ -1,14 +1,12 @@
-import 'package:flutter/material.dart';
-import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:shared_preferences/shared_preferences.dart';
-import 'package:the_quran/features/auth/view/page/forgot_password_screen.dart';
-import 'package:the_quran/features/auth/view/page/home_page.dart';
-import 'package:the_quran/features/auth/view/page/login_screen.dart';
-import 'package:the_quran/features/auth/view/page/on_boarding.dart';
-import 'package:the_quran/features/auth/view/page/sign_up_screen.dart';
+import 'package:firebase_core/firebase_core.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:the_quran/core/utils/firebase_options.dart';
+import 'package:the_quran/features/auth/view/page/forgot_password_screen.dart';
+import 'package:the_quran/features/auth/view/page/login_screen.dart';
+import 'package:the_quran/features/auth/view/page/sign_up_screen.dart';
 import 'package:the_quran/features/dashboard/view/page/dashboard_page.dart';
 
 late final SharedPreferences prefs;
@@ -21,7 +19,7 @@ void main() async {
 }
 
 class MyApp extends StatelessWidget {
-  bool onBoarding = prefs.getBool('onBoarding') ?? false;
+  final bool onBoarding = prefs.getBool('onBoarding') ?? false;
 
   MyApp({super.key});
   @override
@@ -38,9 +36,9 @@ class MyApp extends StatelessWidget {
           stream: FirebaseAuth.instance.authStateChanges(),
           builder: (context, snapshot) {
             if (snapshot.hasData) {
-              return const DashbordPage();
+              return const DashboardPage();
             } else {
-              if (onBoarding) return const DashbordPage();
+              if (onBoarding) return const DashboardPage();
               return const LoginScreen();
             }
           },
@@ -60,7 +58,7 @@ class MyRoutes {
       return MaterialPageRoute(
           builder: (context) => const ForgotPasswordScreen());
     } else {
-      return MaterialPageRoute(builder: (context) => const DashbordPage());
+      return MaterialPageRoute(builder: (context) => const DashboardPage());
     }
   }
 }

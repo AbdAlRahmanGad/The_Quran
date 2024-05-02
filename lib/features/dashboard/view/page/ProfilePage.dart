@@ -1,13 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:the_quran/features/dashboard/controller/bloc/dashboard_bloc.dart';
-import 'package:the_quran/features/dashboard/controller/databaseHelper.dart';
-
 import 'package:the_quran/features/auth/view/page/home_page.dart';
+import 'package:the_quran/features/dashboard/controller/bloc/dashboard_bloc.dart';
 
 class ProfilePage extends StatefulWidget {
   final Profile p;
-  const ProfilePage({Key? key, required this.p}) : super(key: key);
+  const ProfilePage({super.key, required this.p});
 
   @override
   _ProfilePageState createState() => _ProfilePageState(p);

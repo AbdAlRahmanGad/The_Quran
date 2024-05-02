@@ -1,12 +1,11 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:the_quran/features/auth/view/page/home_page.dart';
-import 'package:the_quran/features/dashboard/view/page/ProfilePage.dart';
-import 'package:the_quran/features/dashboard/controller/bloc/dashboard_bloc.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:the_quran/features/auth/view/page/home_page.dart';
+import 'package:the_quran/features/dashboard/controller/bloc/dashboard_bloc.dart';
+import 'package:the_quran/features/dashboard/view/page/ProfilePage.dart';
 
-class DashbordPage extends StatelessWidget {
-  const DashbordPage({super.key});
+class DashboardPage extends StatelessWidget {
+  const DashboardPage({super.key});
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
@@ -23,8 +22,8 @@ class DashbordPage extends StatelessWidget {
                 controller: controller.pageController,
                 onPageChanged: controller.onChangeTabIndex,
                 children: [
-                  Text('test'),
-                  Text("Home"),
+                  const Text('test'),
+                  const Text("Home"),
                   ProfilePage(
                     p: p,
                   ),

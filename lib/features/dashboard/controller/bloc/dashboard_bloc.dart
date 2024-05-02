@@ -1,6 +1,5 @@
 import 'package:bloc/bloc.dart';
 import 'package:flutter/material.dart';
-import 'package:meta/meta.dart';
 import 'package:the_quran/features/auth/view/page/home_page.dart';
 import 'package:the_quran/features/dashboard/controller/databaseHelper.dart';
 import 'package:the_quran/features/dashboard/controller/firebase_data.dart';

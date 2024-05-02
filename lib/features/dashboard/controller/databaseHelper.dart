@@ -1,16 +1,16 @@
-import 'package:sqflite/sqflite.dart';
 import 'package:path/path.dart';
+import 'package:sqflite/sqflite.dart';
 import 'package:the_quran/features/auth/view/page/home_page.dart';
 
 class DatabaseHelper {
-  static final _databaseName = "MyDatabase.db";
-  static final _databaseVersion = 1;
+  static const _databaseName = "MyDatabase.db";
+  static const _databaseVersion = 1;
 
-  static final table = 'Profile';
+  static const table = 'Profile';
 
-  static final columnUid = 'uid';
-  static final columnFullName = 'fullName';
-  static final columnBio = 'bio';
+  static const columnUid = 'uid';
+  static const columnFullName = 'fullName';
+  static const columnBio = 'bio';
 
   DatabaseHelper._privateConstructor();
   static final DatabaseHelper instance = DatabaseHelper._privateConstructor();

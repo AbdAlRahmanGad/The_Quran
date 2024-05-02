@@ -1,11 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:the_quran/features/dashboard/controller/databaseHelper.dart';
 import 'package:the_quran/features/dashboard/controller/firebase_data.dart';
-import 'package:the_quran/features/dashboard/view/page/ProfilePage.dart';
 import 'package:the_quran/features/dashboard/view/page/dashboard_page.dart';
 
 class HomePage extends StatefulWidget {
-  const HomePage({Key? key}) : super(key: key);
+  const HomePage({super.key});
 
   @override
   _HomePageState createState() => _HomePageState();
@@ -71,7 +70,7 @@ class _HomePageState extends State<HomePage> {
                   Navigator.push(
                     context,
                     MaterialPageRoute(
-                        builder: (context) => const DashbordPage()),
+                        builder: (context) => const DashboardPage()),
                   );
                 },
                 child: const Text('Create Profile'),
