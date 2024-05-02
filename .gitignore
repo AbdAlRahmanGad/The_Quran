@@ -47,7 +47,7 @@ macos/
 windows/
 web/
 ios/
-android/
+#android/
 .vscode/*
 icons/
 coverage/*
