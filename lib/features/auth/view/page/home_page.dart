@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:the_quran/features/auth/view/page/DataBaseHelper.dart';
+import 'package:the_quran/features/auth/view/page/databaseHelper.dart';
 import 'package:the_quran/features/auth/view/page/ProfilePage.dart';
 
 class HomePage extends StatefulWidget {
@@ -16,7 +16,8 @@ class Profile {
   String bio;
   String favoriteReciters;
 
-  Profile(this.id, this.firstName, this.lastName, this.bio, this.favoriteReciters);
+  Profile(
+      this.id, this.firstName, this.lastName, this.bio, this.favoriteReciters);
 
   Map<String, dynamic> toMap() {
     var map = <String, dynamic>{
@@ -41,7 +42,8 @@ class _HomePageState extends State<HomePage> {
   final TextEditingController _firstNameController = TextEditingController();
   final TextEditingController _lastNameController = TextEditingController();
   final TextEditingController _bioController = TextEditingController();
-  final TextEditingController _favoriteRecitersController = TextEditingController();
+  final TextEditingController _favoriteRecitersController =
+      TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -68,7 +70,8 @@ class _HomePageState extends State<HomePage> {
               ),
               TextFormField(
                 controller: _favoriteRecitersController,
-                decoration: const InputDecoration(labelText: 'Favorite Reciters'),
+                decoration:
+                    const InputDecoration(labelText: 'Favorite Reciters'),
               ),
               ElevatedButton(
                 onPressed: () {
@@ -82,7 +85,8 @@ class _HomePageState extends State<HomePage> {
                   DatabaseHelper.instance.insert(user.toMap());
                   Navigator.push(
                     context,
-                    MaterialPageRoute(builder: (context) => const ProfilePage()),
+                    MaterialPageRoute(
+                        builder: (context) => const ProfilePage()),
                   );
                 },
                 child: const Text('Create Profile'),

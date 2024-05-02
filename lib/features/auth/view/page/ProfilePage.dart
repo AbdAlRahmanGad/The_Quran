@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:the_quran/features/auth/view/page/DataBaseHelper.dart';
+import 'package:the_quran/features/auth/view/page/databaseHelper.dart';
 
 import 'package:the_quran/features/auth/view/page/home_page.dart';
 
