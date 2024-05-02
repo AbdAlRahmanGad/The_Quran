@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:the_quran/features/auth/view/page/databaseHelper.dart';
-import 'package:the_quran/features/auth/view/page/ProfilePage.dart';
+import 'package:the_quran/features/dashboard/controller/databaseHelper.dart';
+import 'package:the_quran/features/dashboard/controller/firebase_data.dart';
+import 'package:the_quran/features/dashboard/view/page/ProfilePage.dart';
+import 'package:the_quran/features/dashboard/view/page/dashboard_page.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({Key? key}) : super(key: key);
@@ -10,40 +12,34 @@ class HomePage extends StatefulWidget {
 }
 
 class Profile {
-  int id;
-  String firstName;
-  String lastName;
+  String uid;
+  String fullName;
   String bio;
-  String favoriteReciters;
 
   Profile(
-      this.id, this.firstName, this.lastName, this.bio, this.favoriteReciters);
+    this.uid,
+    this.fullName,
+    this.bio,
+  );
 
   Map<String, dynamic> toMap() {
     var map = <String, dynamic>{
-      'id': id,
-      'firstName': firstName,
-      'lastName': lastName,
+      'uid': uid,
+      'fullName': fullName,
       'bio': bio,
-      'favoriteReciters': favoriteReciters,
     };
     return map;
   }
 
   Profile.fromMap(Map<String, dynamic> map)
-      : id = map['id'],
-        firstName = map['firstName'],
-        lastName = map['lastName'],
-        bio = map['bio'],
-        favoriteReciters = map['favoriteReciters'];
+      : uid = map['uid'],
+        fullName = map['fullName'],
+        bio = map['bio'];
 }
 
 class _HomePageState extends State<HomePage> {
-  final TextEditingController _firstNameController = TextEditingController();
-  final TextEditingController _lastNameController = TextEditingController();
+  final TextEditingController _fullNameController = TextEditingController();
   final TextEditingController _bioController = TextEditingController();
-  final TextEditingController _favoriteRecitersController =
-      TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -57,36 +53,25 @@ class _HomePageState extends State<HomePage> {
           child: Column(
             children: [
               TextFormField(
-                controller: _firstNameController,
-                decoration: const InputDecoration(labelText: 'First Name'),
-              ),
-              TextFormField(
-                controller: _lastNameController,
-                decoration: const InputDecoration(labelText: 'Last Name'),
+                controller: _fullNameController,
+                decoration: const InputDecoration(labelText: 'Full Name'),
               ),
               TextFormField(
                 controller: _bioController,
                 decoration: const InputDecoration(labelText: 'Bio'),
               ),
-              TextFormField(
-                controller: _favoriteRecitersController,
-                decoration:
-                    const InputDecoration(labelText: 'Favorite Reciters'),
-              ),
               ElevatedButton(
                 onPressed: () {
                   var user = Profile(
-                    1,
-                    _firstNameController.text,
-                    _lastNameController.text,
+                    FirebaseRepo().fetch()!.uid,
+                    _fullNameController.text,
                     _bioController.text,
-                    _favoriteRecitersController.text,
                   );
                   DatabaseHelper.instance.insert(user.toMap());
                   Navigator.push(
                     context,
                     MaterialPageRoute(
-                        builder: (context) => const ProfilePage()),
+                        builder: (context) => const DashbordPage()),
                   );
                 },
                 child: const Text('Create Profile'),
@@ -100,10 +85,8 @@ class _HomePageState extends State<HomePage> {
 
   @override
   void dispose() {
-    _firstNameController.dispose();
-    _lastNameController.dispose();
+    _fullNameController.dispose();
     _bioController.dispose();
-    _favoriteRecitersController.dispose();
     super.dispose();
   }
 }
