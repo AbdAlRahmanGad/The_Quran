@@ -1,45 +1,52 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:the_quran/features/auth/view/page/home_page.dart';
 import 'package:the_quran/features/dashboard/controller/bloc/dashboard_bloc.dart';
 
+import '../../../auth/model/user_details.dart';
+
 class ProfilePage extends StatefulWidget {
-  final Profile p;
-  const ProfilePage({super.key, required this.p});
+  final UserDetails userDetails;
+  const ProfilePage({
+    super.key,
+    required this.userDetails,
+  });
 
   @override
-  _ProfilePageState createState() => _ProfilePageState(p);
+  ProfilePageState createState() => ProfilePageState(userDetails);
 }
 
-class _ProfilePageState extends State<ProfilePage> {
-  final Profile p;
+class ProfilePageState extends State<ProfilePage> {
+  final UserDetails userDetails;
 
-  _ProfilePageState(this.p);
+  ProfilePageState(this.userDetails);
 
   @override
   void initState() {
     super.initState();
+    DashboardBloc dashboardBloc = context.read<DashboardBloc>();
+    dashboardBloc.add(GetUserDetails());
   }
 
   @override
   Widget build(BuildContext context) {
     DashboardBloc dashboardBloc = context.read<DashboardBloc>();
-    dashboardBloc.add(GetProfile());
+    dashboardBloc.add(GetUserDetails());
     return Scaffold(
-        appBar: AppBar(
-          title: const Text('Profile Page'),
-        ),
-        body: ListView(
-          children: <Widget>[
-            ListTile(
-              title: const Text('Full Name'),
-              subtitle: Text(p.fullName),
-            ),
-            ListTile(
-              title: const Text('Bio'),
-              subtitle: Text(p.bio),
-            ),
-          ],
-        ));
+      appBar: AppBar(
+        title: const Text('Profile'),
+      ),
+      body: ListView(
+        children: <Widget>[
+          ListTile(
+            title: const Text('Full Name'),
+            subtitle: Text(userDetails.userFullName),
+          ),
+          ListTile(
+            title: const Text('Bio'),
+            subtitle: Text(userDetails.userBio),
+          ),
+        ],
+      ),
+    );
   }
 }
