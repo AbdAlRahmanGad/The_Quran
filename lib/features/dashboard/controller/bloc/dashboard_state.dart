@@ -8,7 +8,8 @@ final class DashboardInitial extends DashboardState {}
 final class DashboardProfileLoading extends DashboardState {}
 
 final class DashboardProfileLoaded extends DashboardState {
-  final Profile profile;
+  final UserDetails userDetails;
+  final List<Reciter> reciters;
 
-  DashboardProfileLoaded(this.profile);
+  DashboardProfileLoaded(this.userDetails, this.reciters);
 }

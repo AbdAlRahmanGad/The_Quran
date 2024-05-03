@@ -1,8 +1,10 @@
 import 'package:bloc/bloc.dart';
 import 'package:flutter/material.dart';
-import 'package:the_quran/features/auth/view/page/home_page.dart';
-import 'package:the_quran/features/dashboard/controller/databaseHelper.dart';
+import 'package:the_quran/features/dashboard/controller/database_helper.dart';
 import 'package:the_quran/features/dashboard/controller/firebase_data.dart';
+
+import '../../../auth/model/reciter.dart';
+import '../../../auth/model/user_details.dart';
 
 part 'dashboard_event.dart';
 part 'dashboard_state.dart';
@@ -23,14 +25,17 @@ class DashboardBloc extends Bloc<DashboardEvent, DashboardState> {
   void onChangeTabIndex(int index) {
     selectedTapIndex = index;
     pageController.jumpToPage(selectedTapIndex);
-    emit(DashboardInitial());
   }
 
   DashboardBloc() : super(DashboardInitial()) {
-    on<GetProfile>((event, emit) async {
+    on<GetUserDetails>((event, emit) async {
       emit(DashboardProfileLoading());
-      final Profile p = await DatabaseHelper.instance.getProfile(user!.uid);
-      emit(DashboardProfileLoaded(p));
+      final UserDetails userDetails =
+          await DatabaseHelper.instance.getUserDetails(user!.uid);
+
+      final List<Reciter> reciters =
+          await DatabaseHelper.instance.getAllReciters();
+      emit(DashboardProfileLoaded(userDetails, reciters));
     });
   }
 }

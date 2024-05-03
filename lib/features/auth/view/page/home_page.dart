@@ -1,39 +1,15 @@
 import 'package:flutter/material.dart';
-import 'package:the_quran/features/dashboard/controller/databaseHelper.dart';
+import 'package:the_quran/features/dashboard/controller/database_helper.dart';
 import 'package:the_quran/features/dashboard/controller/firebase_data.dart';
 import 'package:the_quran/features/dashboard/view/page/dashboard_page.dart';
+
+import '../../model/user_details.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
 
   @override
   _HomePageState createState() => _HomePageState();
-}
-
-class Profile {
-  String uid;
-  String fullName;
-  String bio;
-
-  Profile(
-    this.uid,
-    this.fullName,
-    this.bio,
-  );
-
-  Map<String, dynamic> toMap() {
-    var map = <String, dynamic>{
-      'uid': uid,
-      'fullName': fullName,
-      'bio': bio,
-    };
-    return map;
-  }
-
-  Profile.fromMap(Map<String, dynamic> map)
-      : uid = map['uid'],
-        fullName = map['fullName'],
-        bio = map['bio'];
 }
 
 class _HomePageState extends State<HomePage> {
@@ -44,7 +20,7 @@ class _HomePageState extends State<HomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Profile Page'),
+        title: const Text('User Details'),
       ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
@@ -61,12 +37,13 @@ class _HomePageState extends State<HomePage> {
               ),
               ElevatedButton(
                 onPressed: () {
-                  var user = Profile(
-                    FirebaseRepo().fetch()!.uid,
-                    _fullNameController.text,
-                    _bioController.text,
+                  var userDetails = UserDetails(
+                    userId: FirebaseRepo().fetch()!.uid,
+                    userFullName: _fullNameController.text,
+                    userBio: _bioController.text,
+                    favouriteReciters: List.empty(),
                   );
-                  DatabaseHelper.instance.insert(user.toMap());
+                  DatabaseHelper.instance.insertUserDetails(userDetails);
                   Navigator.push(
                     context,
                     MaterialPageRoute(
