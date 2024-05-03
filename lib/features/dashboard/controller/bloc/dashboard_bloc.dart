@@ -23,7 +23,6 @@ class DashboardBloc extends Bloc<DashboardEvent, DashboardState> {
   void onChangeTabIndex(int index) {
     selectedTapIndex = index;
     pageController.jumpToPage(selectedTapIndex);
-    emit(DashboardInitial());
   }
 
   DashboardBloc() : super(DashboardInitial()) {
