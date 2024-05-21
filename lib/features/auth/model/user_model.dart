@@ -1,13 +1,30 @@
+import 'dart:convert';
+
+// ignore_for_file: public_member_api_docs, sort_constructors_first
 class UserModel {
-  final String? id;
+  final String? name;
   final String? email;
-  final String? displayName;
-
   UserModel({
-    this.id,
+    this.name,
     this.email,
-    this.displayName,
   });
-}
 
-// User model Can be improver later to have all the data we need. This comment is for Loay Ghreeb
+  Map<String, dynamic> toMap() {
+    return <String, dynamic>{
+      'name': name,
+      'email': email,
+    };
+  }
+
+  factory UserModel.fromMap(Map<String, dynamic> map) {
+    return UserModel(
+      name: map['name'] != null ? map['name'] as String : null,
+      email: map['email'] != null ? map['email'] as String : null,
+    );
+  }
+
+  String toJson() => json.encode(toMap());
+
+  factory UserModel.fromJson(String source) =>
+      UserModel.fromMap(json.decode(source) as Map<String, dynamic>);
+}

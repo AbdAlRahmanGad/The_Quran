@@ -3,11 +3,14 @@ import 'dart:developer';
 import 'package:awesome_dialog/awesome_dialog.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:the_quran/core/utils/consts.dart';
 import 'package:the_quran/core/utils/validation.dart';
 import 'package:the_quran/features/auth/controller/bloc/auth_controller_bloc.dart';
+import 'package:the_quran/features/auth/view/components/app_text_form_field.dart';
+import 'package:the_quran/features/auth/view/components/gradient_background.dart';
 import 'package:the_quran/features/auth/view/page/forgot_password_screen.dart';
-import 'package:the_quran/features/auth/view/page/home_page.dart';
 import 'package:the_quran/features/auth/view/page/sign_up_screen.dart';
+import 'package:the_quran/features/dashboard/view/page/dashboard_page.dart';
 
 class LoginScreen extends StatelessWidget {
   const LoginScreen({
@@ -17,110 +20,139 @@ class LoginScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('Log In'),
-      ),
-      body: Padding(
-        padding: const EdgeInsets.all(16),
-        child: BlocProvider(
-          create: (context) => AuthControllerBloc(
-            onSignSuccess: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(builder: (context) => const HomePage()),
-              );
-            },
-          ),
-          child: BlocBuilder<AuthControllerBloc, AuthControllerState>(
-            builder: (context, state) {
-              if (state is AuthControllerLoadingState &&
-                  state.isLoading == true) {
-                log("loading");
-                return const Center(child: CircularProgressIndicator());
-              } else if (state is AuthControllerSuccessState) {
-                log("success");
-                WidgetsBinding.instance.addPostFrameCallback((_) {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(builder: (context) => const HomePage()),
-                  );
-                });
-              } else if (state is AuthControllerFailureState) {
-                log("Failed");
-                WidgetsBinding.instance.addPostFrameCallback((_) {
-                  AwesomeDialog(
-                    context: context,
-                    dialogType: DialogType.error,
-                    animType: AnimType.rightSlide,
-                    title: 'Error',
-                    desc: state.errorMessage,
-                    btnCancelOnPress: () {},
-                    btnOkOnPress: () {},
-                  ).show();
-                });
-              }
-              AuthControllerBloc bloc = context.read<AuthControllerBloc>();
-              return Form(
-                key: bloc.formKey,
-                child: Column(
+      body: BlocProvider(
+        create: (context) => AuthControllerBloc(
+          onSignSuccess: () {
+            Navigator.push(
+              context,
+              MaterialPageRoute(builder: (context) => const DashboardPage()),
+            );
+          },
+        ),
+        child: BlocBuilder<AuthControllerBloc, AuthControllerState>(
+          builder: (context, state) {
+            if (state is AuthControllerLoadingState &&
+                state.isLoading == true) {
+              log("loading");
+              return const Center(child: CircularProgressIndicator());
+            } else if (state is AuthControllerSuccessState) {
+              log("success");
+              WidgetsBinding.instance.addPostFrameCallback((_) {
+                Navigator.pushAndRemoveUntil(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) => const DashboardPage()),
+                  (route) => false,
+                );
+              });
+            } else if (state is AuthControllerFailureState) {
+              log("Failed");
+              WidgetsBinding.instance.addPostFrameCallback((_) {
+                AwesomeDialog(
+                  context: context,
+                  dialogType: DialogType.error,
+                  animType: AnimType.rightSlide,
+                  title: 'Error',
+                  desc: state.errorMessage,
+                  btnCancelOnPress: () {},
+                  btnOkOnPress: () {},
+                ).show();
+              });
+            }
+            AuthControllerBloc bloc = context.read<AuthControllerBloc>();
+            return ListView(
+              padding: EdgeInsets.zero,
+              children: [
+                const GradientBackground(
                   children: [
-                    TextFormField(
-                      autovalidateMode: AutovalidateMode.onUserInteraction,
-                      controller: bloc.emailController,
-                      decoration: const InputDecoration(labelText: 'Email'),
-                      validator: Validator().validateMail,
+                    Text(
+                      "Log In with your account",
+                      style: Consts.titleLarge,
                     ),
-                    TextFormField(
-                      autovalidateMode: AutovalidateMode.onUserInteraction,
-                      controller: bloc.passwordController,
-                      decoration: const InputDecoration(labelText: 'Password'),
-                      obscureText: true,
-                      validator: (value) {
-                        if (value == null || value.isEmpty) {
-                          return 'Please enter your password';
-                        }
-                        return null;
-                      },
+                    SizedBox(height: 6),
+                    Text("Log in with your account", style: Consts.bodySmall),
+                  ],
+                ),
+                Form(
+                  key: bloc.formKey,
+                  child: Padding(
+                    padding: const EdgeInsets.all(20),
+                    child: Column(
+                      mainAxisSize: MainAxisSize.min,
+                      crossAxisAlignment: CrossAxisAlignment.end,
+                      children: [
+                        AppTextFormField(
+                          controller: bloc.emailController,
+                          labelText: "Email",
+                          keyboardType: TextInputType.emailAddress,
+                          textInputAction: TextInputAction.next,
+                          autovalidateMode: AutovalidateMode.onUserInteraction,
+                          validator: Validator().validateMail,
+                        ),
+                        AppTextFormField(
+                          autovalidateMode: AutovalidateMode.always,
+                          obscureText: true,
+                          controller: bloc.passwordController,
+                          labelText: "Password",
+                          textInputAction: TextInputAction.done,
+                          keyboardType: TextInputType.visiblePassword,
+                          validator: (value) {
+                            if (value == null || value.isEmpty) {
+                              return 'Please enter your password';
+                            }
+                            return null;
+                          },
+                        ),
+                        TextButton(
+                          onPressed: () {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) =>
+                                      const ForgotPasswordScreen()),
+                            );
+                          },
+                          child: const Text("Forgot your password"),
+                        ),
+                        const SizedBox(height: 20),
+                        FilledButton(
+                          onPressed: () async {
+                            if (bloc.emailController.text.isNotEmpty &&
+                                bloc.passwordController.text.isNotEmpty) {
+                              bloc.add(Login(
+                                bloc.emailController.text.trim(),
+                                bloc.passwordController.text.trim(),
+                              ));
+                            }
+                          },
+                          child: const Text("LogIn"),
+                        ),
+                        const SizedBox(height: 20),
+                      ],
                     ),
-                    const SizedBox(height: 20),
-                    ElevatedButton(
-                      onPressed: () async {
-                        if (bloc.emailController.text.isNotEmpty &&
-                            bloc.passwordController.text.isNotEmpty) {
-                          bloc.add(Login(
-                            bloc.emailController.text.trim(),
-                            bloc.passwordController.text.trim(),
-                          ));
-                        }
-                      },
-                      child: const Text('Log In'),
+                  ),
+                ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Text(
+                      "Don't have an account?",
+                      style: Consts.bodySmall.copyWith(color: Colors.black),
                     ),
+                    const SizedBox(width: 4),
                     TextButton(
-                      onPressed: () {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => const SignUpScreen()),
-                        );
-                      },
-                      child: const Text('Don\'t have an account? Sign Up'),
-                    ),
-                    TextButton(
-                      onPressed: () {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) =>
-                                  const ForgotPasswordScreen()),
-                        );
-                      },
-                      child: const Text('Forgot Password?'),
+                      onPressed: () => Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => const SignUpScreen()),
+                      ),
+                      child: const Text("Register"),
                     ),
                   ],
                 ),
-              );
-            },
-          ),
+              ],
+            );
+          },
         ),
       ),
     );

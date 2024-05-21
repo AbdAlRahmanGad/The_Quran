@@ -3,6 +3,7 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:the_quran/core/utils/consts.dart';
 import 'package:the_quran/core/utils/firebase_options.dart';
 import 'package:the_quran/features/auth/view/page/forgot_password_screen.dart';
 import 'package:the_quran/features/auth/view/page/login_screen.dart';
@@ -28,9 +29,7 @@ class MyApp extends StatelessWidget {
       onGenerateRoute: MyRoutes.onGenerateRoute,
       debugShowCheckedModeBanner: false,
       title: 'The Quran',
-      theme: ThemeData(
-        primarySwatch: Colors.blue,
-      ),
+      theme: Consts.themeData,
       home: Scaffold(
         body: StreamBuilder<User?>(
           stream: FirebaseAuth.instance.authStateChanges(),

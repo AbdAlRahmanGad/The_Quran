@@ -3,6 +3,7 @@ import 'package:bloc/bloc.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:the_quran/core/utils/auth_service.dart';
+import 'package:the_quran/core/utils/consts.dart';
 import 'package:the_quran/features/auth/model/user_model.dart';
 
 part 'auth_controller_event.dart';
@@ -13,21 +14,24 @@ class AuthControllerBloc
   final AuthService authService = AuthService();
   final Function onSignSuccess;
 
+  TextEditingController nameController = TextEditingController();
   TextEditingController emailController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
+  TextEditingController confirmPasswordController = TextEditingController();
 
   GlobalKey<FormState> formKey = GlobalKey<FormState>();
 
-  AuthControllerBloc({this.onSignSuccess = _defaultOnSignSuccess}) : super(AuthControllerInitialState()) {
+  AuthControllerBloc({this.onSignSuccess = _defaultOnSignSuccess})
+      : super(AuthControllerInitialState()) {
     on<AuthControllerEvent>((event, emit) {});
 
     on<SignUp>((event, emit) async {
       if (formKey.currentState!.validate()) {
         emit(const AuthControllerLoadingState(isLoading: true));
         try {
-          final UserModel? user =
-              await authService.signUp(event.email, event.password);
+          final user = await authService.signUp(event.email, event.password);
           if (user != null) {
+            Consts.auth.currentUser!.updateDisplayName(event.name);
             emit(const AuthControllerFeedbackState("Signed up successfully"));
             onSignSuccess();
           } else {

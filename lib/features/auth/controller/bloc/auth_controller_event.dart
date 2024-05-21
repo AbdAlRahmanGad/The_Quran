@@ -9,9 +9,10 @@ abstract class AuthControllerEvent {
 
 class SignUp extends AuthControllerEvent {
   final String email;
+  final String name;
   final String password;
 
-  const SignUp(this.email, this.password);
+  const SignUp(this.email, this.password, this.name);
 
   @override
   List<Object> get props => [email, password];

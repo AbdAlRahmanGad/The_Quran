@@ -8,9 +8,8 @@ class AuthService {
     final UserCredential userCredential = await _auth
         .createUserWithEmailAndPassword(email: email, password: password);
     return UserModel(
-      id: userCredential.user?.uid,
       email: userCredential.user?.email ?? '',
-      displayName: userCredential.user?.displayName ?? '',
+      name: userCredential.user?.displayName ?? '',
     );
   }
 
@@ -18,9 +17,8 @@ class AuthService {
     final UserCredential userCredential = await _auth
         .signInWithEmailAndPassword(email: email, password: password);
     return UserModel(
-      id: userCredential.user?.uid,
       email: userCredential.user?.email ?? '',
-      displayName: userCredential.user?.displayName ?? '',
+      name: userCredential.user?.displayName ?? '',
     );
   }
 
