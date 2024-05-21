@@ -57,7 +57,8 @@ class _AthkarPageState extends State<AthkarPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(zekr.title),
+        title: Text(zekr.title, style: TextStyle(color: Colors.white)),
+        backgroundColor: Colors.green,
       ),
       body: ListView.builder(
         itemCount: zekr.content.length,
@@ -70,9 +71,12 @@ class _AthkarPageState extends State<AthkarPage> {
                 });
               }
             },
-            child: ListTile(
-              title: Text(zekr.content[index].zekr),
-              subtitle: Text('Repeat: ${zekr.content[index].repeat}\nBless: ${zekr.content[index].bless}'),
+            child: Card(
+              margin: EdgeInsets.all(8.0),
+              child: ListTile(
+                title: Text(zekr.content[index].zekr, style: TextStyle(fontWeight: FontWeight.bold)),
+                subtitle: Text('التكرار: ${zekr.content[index].repeat}\nالفضل: ${zekr.content[index].bless}', style: TextStyle(color: Colors.grey[700])),
+              ),
             ),
           );
         },
