@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:the_quran/features/auth/view/page/athkarPage.dart';
+import 'package:the_quran/features/dashboard/view/page/athkarPage.dart';
 import 'dart:convert';
 
 class GeneralPage extends StatelessWidget {
