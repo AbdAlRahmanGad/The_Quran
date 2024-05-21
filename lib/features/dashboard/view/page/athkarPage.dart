@@ -1,4 +1,5 @@
 import 'dart:convert';
+
 import 'package:flutter/material.dart';
 
 class Zekr {
@@ -9,7 +10,8 @@ class Zekr {
 
   factory Zekr.fromJson(Map<String, dynamic> json) {
     var contentFromJson = json['content'] as List;
-    List<Content> contentList = contentFromJson.map((i) => Content.fromJson(i)).toList();
+    List<Content> contentList =
+        contentFromJson.map((i) => Content.fromJson(i)).toList();
 
     return Zekr(
       title: json['title'],
@@ -57,7 +59,7 @@ class _AthkarPageState extends State<AthkarPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(zekr.title, style: TextStyle(color: Colors.white)),
+        title: Text(zekr.title, style: const TextStyle(color: Colors.white)),
         backgroundColor: Colors.green,
       ),
       body: ListView.builder(
@@ -71,11 +73,17 @@ class _AthkarPageState extends State<AthkarPage> {
                 });
               }
             },
-            child: Card(
-              margin: EdgeInsets.all(8.0),
-              child: ListTile(
-                title: Text(zekr.content[index].zekr, style: TextStyle(fontWeight: FontWeight.bold)),
-                subtitle: Text('التكرار: ${zekr.content[index].repeat}\nالفضل: ${zekr.content[index].bless}', style: TextStyle(color: Colors.grey[700])),
+            child: Directionality(
+              textDirection: TextDirection.rtl,
+              child: Card(
+                margin: const EdgeInsets.all(8.0),
+                child: ListTile(
+                  title: Text(zekr.content[index].zekr,
+                      style: const TextStyle(fontWeight: FontWeight.bold)),
+                  subtitle: Text(
+                      'التكرار: ${zekr.content[index].repeat}\nالفضل: ${zekr.content[index].bless}',
+                      style: TextStyle(color: Colors.grey[700])),
+                ),
               ),
             ),
           );
