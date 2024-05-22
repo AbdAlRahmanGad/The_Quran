@@ -23,9 +23,10 @@ class LoginScreen extends StatelessWidget {
       body: BlocProvider(
         create: (context) => AuthControllerBloc(
           onSignSuccess: () {
-            Navigator.push(
+            Navigator.pushAndRemoveUntil(
               context,
               MaterialPageRoute(builder: (context) => const DashboardPage()),
+              (route) => false,
             );
           },
         ),

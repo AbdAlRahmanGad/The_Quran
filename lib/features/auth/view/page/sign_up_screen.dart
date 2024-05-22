@@ -21,16 +21,17 @@ class SignUpScreen extends StatelessWidget {
       extendBodyBehindAppBar: true,
       appBar: AppBar(
         backgroundColor: Colors.transparent,
-        iconTheme: IconThemeData(
+        iconTheme: const IconThemeData(
           color: Colors.white, //change your color here
         ),
       ),
       body: BlocProvider(
         create: (context) => AuthControllerBloc(
           onSignSuccess: () {
-            Navigator.push(
+            Navigator.pushAndRemoveUntil(
               context,
               MaterialPageRoute(builder: (context) => const DashboardPage()),
+              (route) => false,
             );
           },
         ),

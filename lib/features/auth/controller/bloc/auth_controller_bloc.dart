@@ -1,7 +1,10 @@
 import 'dart:developer';
+import 'dart:io';
 import 'package:bloc/bloc.dart';
-import 'package:firebase_core/firebase_core.dart';
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+import 'package:path_provider/path_provider.dart';
 import 'package:the_quran/core/utils/auth_service.dart';
 import 'package:the_quran/core/utils/consts.dart';
 import 'package:the_quran/features/auth/model/user_model.dart';
@@ -31,7 +34,20 @@ class AuthControllerBloc
         try {
           final user = await authService.signUp(event.email, event.password);
           if (user != null) {
-            Consts.auth.currentUser!.updateDisplayName(event.name);
+            await Consts.auth.currentUser!.updateDisplayName(event.name);
+            Reference ref = FirebaseStorage.instance
+                .ref()
+                .child('User_Images')
+                .child("Def");
+            final byteData = await rootBundle.load('assets/images/DORR.png');
+            final file = File('${(await getTemporaryDirectory()).path}/test');
+            await file.writeAsBytes(byteData.buffer
+                .asUint8List(byteData.offsetInBytes, byteData.lengthInBytes));
+            await ref.putFile(file);
+            String imageURL = await ref.getDownloadURL();
+
+            await Consts.auth.currentUser!.updatePhotoURL(imageURL);
+
             emit(const AuthControllerFeedbackState("Signed up successfully"));
             onSignSuccess();
           } else {

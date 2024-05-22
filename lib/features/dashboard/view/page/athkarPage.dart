@@ -39,7 +39,7 @@ class Content {
 class AthkarPage extends StatefulWidget {
   final String jsonString;
 
-  AthkarPage({required this.jsonString});
+  const AthkarPage({super.key, required this.jsonString});
 
   @override
   _AthkarPageState createState() => _AthkarPageState();
