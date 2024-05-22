@@ -7,7 +7,10 @@ import 'package:flutter/services.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:the_quran/core/utils/auth_service.dart';
 import 'package:the_quran/core/utils/consts.dart';
+import 'package:the_quran/features/auth/model/user_details.dart';
 import 'package:the_quran/features/auth/model/user_model.dart';
+import 'package:the_quran/features/dashboard/controller/database_helper.dart';
+import 'package:the_quran/features/dashboard/controller/firebase_data.dart';
 
 part 'auth_controller_event.dart';
 part 'auth_controller_state.dart';
@@ -35,6 +38,12 @@ class AuthControllerBloc
           final user = await authService.signUp(event.email, event.password);
           if (user != null) {
             await Consts.auth.currentUser!.updateDisplayName(event.name);
+            var userDetails = UserDetails(
+              userId: FirebaseRepo().fetch()!.uid,
+              userFullName: event.name,
+              favouriteReciters: List.empty(),
+            );
+            DatabaseHelper.instance.insertUserDetails(userDetails);
             Reference ref = FirebaseStorage.instance
                 .ref()
                 .child('User_Images')

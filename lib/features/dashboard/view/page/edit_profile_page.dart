@@ -115,12 +115,8 @@ class _EditProfilePageState extends State<EditProfilePage> {
                               animType: AnimType.rightSlide,
                               title: 'Success',
                               desc: "Updated successfully",
-                              btnCancelOnPress: () {
-                                Navigator.pop(context);
-                              },
-                              btnOkOnPress: () {
-                                Navigator.pop(context);
-                              },
+                              btnCancelOnPress: () {},
+                              btnOkOnPress: () {},
                             ).show();
                           } on FirebaseException catch (e) {
                             log(e.message.toString());
@@ -130,12 +126,8 @@ class _EditProfilePageState extends State<EditProfilePage> {
                               animType: AnimType.rightSlide,
                               title: 'Error',
                               desc: e.message,
-                              btnCancelOnPress: () {
-                                Navigator.pop(context);
-                              },
-                              btnOkOnPress: () {
-                                Navigator.pop(context);
-                              },
+                              btnCancelOnPress: () {},
+                              btnOkOnPress: () {},
                             ).show();
                           }
                         }

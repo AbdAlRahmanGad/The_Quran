@@ -50,12 +50,8 @@ class SignUpScreen extends StatelessWidget {
                   animType: AnimType.rightSlide,
                   title: 'success',
                   desc: state.feedbackMessage,
-                  btnCancelOnPress: () {
-                    Navigator.pop(context);
-                  },
-                  btnOkOnPress: () {
-                    Navigator.pop(context);
-                  },
+                  btnCancelOnPress: () {},
+                  btnOkOnPress: () {},
                 ).show();
               });
             } else if (state is AuthControllerFailureState) {

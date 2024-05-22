@@ -55,12 +55,8 @@ class LoginScreen extends StatelessWidget {
                   animType: AnimType.rightSlide,
                   title: 'Error',
                   desc: state.errorMessage,
-                  btnCancelOnPress: () {
-                    Navigator.pop(context);
-                  },
-                  btnOkOnPress: () {
-                    Navigator.pop(context);
-                  },
+                  btnCancelOnPress: () {},
+                  btnOkOnPress: () {},
                 ).show();
               });
             }
