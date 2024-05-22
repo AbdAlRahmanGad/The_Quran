@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:the_quran/core/utils/consts.dart';
@@ -41,13 +43,15 @@ class ProfilePageState extends State<ProfilePage> {
         physics: const BouncingScrollPhysics(),
         children: [
           ProfileWidget(
-            imagePath: Consts.auth.currentUser!.photoURL ?? "",
+            imagePath:
+                Image.network(Consts.auth.currentUser!.photoURL.toString()),
             onClicked: () {
               Navigator.of(context).push(
                 MaterialPageRoute(
                     builder: (context) => const EditProfilePage()),
               );
             },
+            network: true,
           ),
           const SizedBox(height: 24),
           Column(

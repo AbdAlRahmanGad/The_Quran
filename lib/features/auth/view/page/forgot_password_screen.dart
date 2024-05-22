@@ -39,8 +39,12 @@ class ForgotPasswordScreen extends StatelessWidget {
                   animType: AnimType.rightSlide,
                   title: 'Error',
                   desc: state.feedbackMessage,
-                  btnCancelOnPress: () {},
-                  btnOkOnPress: () {},
+                  btnCancelOnPress: () {
+                    Navigator.pop(context);
+                  },
+                  btnOkOnPress: () {
+                    Navigator.pop(context);
+                  },
                 ).show();
               });
             } else if (state is AuthControllerFailureState) {
@@ -52,8 +56,12 @@ class ForgotPasswordScreen extends StatelessWidget {
                   animType: AnimType.rightSlide,
                   title: 'Error',
                   desc: state.errorMessage,
-                  btnCancelOnPress: () {},
-                  btnOkOnPress: () {},
+                  btnCancelOnPress: () {
+                    Navigator.pop(context);
+                  },
+                  btnOkOnPress: () {
+                    Navigator.pop(context);
+                  },
                 ).show();
               });
             }

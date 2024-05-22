@@ -17,20 +17,27 @@ class EditProfilePage extends StatefulWidget {
 }
 
 class _EditProfilePageState extends State<EditProfilePage> {
-  TextEditingController nameController = TextEditingController();
+  TextEditingController nameController = TextEditingController(
+      text: Consts.auth.currentUser!.displayName.toString());
 
   File img = File(Consts.auth.currentUser!.photoURL.toString());
+  bool network = true;
+  bool loading = false;
+
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
 
-  static Future<File> getImage() async {
+  Future<File> getImage() async {
     final image = await ImagePicker().pickImage(
       source: ImageSource.gallery,
       maxHeight: 1500,
       maxWidth: 1500,
     );
     if (image != null) {
+      network = false;
+
       return File(image.path);
     }
+    network = true;
     return File(Consts.auth.currentUser!.photoURL.toString());
   }
 
@@ -39,82 +46,105 @@ class _EditProfilePageState extends State<EditProfilePage> {
         appBar: AppBar(
           title: const Text('Edit Profile'),
         ),
-        body: Form(
-          key: _formKey,
-          child: ListView(
-            padding: const EdgeInsets.symmetric(horizontal: 32),
-            physics: const BouncingScrollPhysics(),
-            children: [
-              ProfileWidget(
-                imagePath: Consts.auth.currentUser!.photoURL ?? "",
-                isEdit: true,
-                onClicked: () async {
-                  img = await getImage();
-                },
-              ),
-              const SizedBox(height: 24),
-              AppTextFormField(
-                controller: nameController,
-                labelText: "Name",
-                keyboardType: TextInputType.name,
-                textInputAction: TextInputAction.next,
-                autovalidateMode: AutovalidateMode.onUserInteraction,
-                validator: (value) {
-                  if (value == null || value.isEmpty) {
-                    return 'Please enter your Name';
-                  }
-                  return null;
-                },
-              ),
-              const SizedBox(height: 10),
-              FilledButton(
-                onPressed: () async {
-                  if (_formKey.currentState!.validate()) {
-                    try {
-                      if (Consts.auth.currentUser!.photoURL!.isNotEmpty) {
-                        if (File(
-                                Consts.auth.currentUser!.photoURL.toString()) !=
-                            img) {
-                          Reference ref = FirebaseStorage.instance
-                              .ref()
-                              .child('User_Images')
-                              .child("new");
-                          await ref.putFile(img);
-                          String imageURL = await ref.getDownloadURL();
-                          await Consts.auth.currentUser!
-                              .updatePhotoURL(imageURL);
+        body: loading
+            ? Center(child: CircularProgressIndicator())
+            : Form(
+                key: _formKey,
+                child: ListView(
+                  padding: const EdgeInsets.symmetric(horizontal: 32),
+                  physics: const BouncingScrollPhysics(),
+                  children: [
+                    ProfileWidget(
+                      network: network,
+                      imagePath: network
+                          ? Image.network(
+                              Consts.auth.currentUser!.photoURL.toString())
+                          : Image.file(img),
+                      isEdit: true,
+                      onClicked: () async {
+                        img = await getImage();
+
+                        setState(() {});
+                      },
+                    ),
+                    const SizedBox(height: 24),
+                    AppTextFormField(
+                      controller: nameController,
+                      labelText: "Name",
+                      keyboardType: TextInputType.name,
+                      textInputAction: TextInputAction.next,
+                      autovalidateMode: AutovalidateMode.onUserInteraction,
+                      validator: (value) {
+                        if (value == null || value.isEmpty) {
+                          return 'Please enter your Name';
                         }
-                      }
-                      await Consts.auth.currentUser!
-                          .updateDisplayName(nameController.text.trim());
-                      AwesomeDialog(
-                        context: context,
-                        dialogType: DialogType.success,
-                        animType: AnimType.rightSlide,
-                        title: 'Success',
-                        desc: "Updated successfully",
-                        btnCancelOnPress: () {},
-                        btnOkOnPress: () {},
-                      ).show();
-                    } on FirebaseException catch (e) {
-                      log(e.message.toString());
-                      AwesomeDialog(
-                        context: context,
-                        dialogType: DialogType.error,
-                        animType: AnimType.rightSlide,
-                        title: 'Error',
-                        desc: e.message,
-                        btnCancelOnPress: () {},
-                        btnOkOnPress: () {},
-                      ).show();
-                    }
-                  }
-                },
-                child: const Text('Done'),
+                        return null;
+                      },
+                    ),
+                    const SizedBox(height: 10),
+                    FilledButton(
+                      onPressed: () async {
+                        if (_formKey.currentState!.validate()) {
+                          try {
+                            if (Consts.auth.currentUser!.photoURL!.isNotEmpty) {
+                              setState(() {
+                                loading = true;
+                              });
+                              if (File(Consts.auth.currentUser!.photoURL
+                                      .toString()) !=
+                                  img) {
+                                Reference ref = FirebaseStorage.instance
+                                    .ref()
+                                    .child('User_Images')
+                                    .child(Consts.auth.currentUser!.uid
+                                        .toString());
+                                await ref.putFile(img);
+                                String imageURL = await ref.getDownloadURL();
+                                await Consts.auth.currentUser!
+                                    .updatePhotoURL(imageURL);
+                              }
+                              setState(() {
+                                loading = false;
+                              });
+                            }
+                            await Consts.auth.currentUser!
+                                .updateDisplayName(nameController.text.trim());
+                            AwesomeDialog(
+                              context: context,
+                              dialogType: DialogType.success,
+                              animType: AnimType.rightSlide,
+                              title: 'Success',
+                              desc: "Updated successfully",
+                              btnCancelOnPress: () {
+                                Navigator.pop(context);
+                              },
+                              btnOkOnPress: () {
+                                Navigator.pop(context);
+                              },
+                            ).show();
+                          } on FirebaseException catch (e) {
+                            log(e.message.toString());
+                            AwesomeDialog(
+                              context: context,
+                              dialogType: DialogType.error,
+                              animType: AnimType.rightSlide,
+                              title: 'Error',
+                              desc: e.message,
+                              btnCancelOnPress: () {
+                                Navigator.pop(context);
+                              },
+                              btnOkOnPress: () {
+                                Navigator.pop(context);
+                              },
+                            ).show();
+                          }
+                        }
+                      },
+                      child: const Text('Done'),
+                    ),
+                    const SizedBox(height: 24),
+                  ],
+                ),
               ),
-              const SizedBox(height: 24),
-            ],
-          ),
-        ),
       );
 }
