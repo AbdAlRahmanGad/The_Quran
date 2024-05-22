@@ -11,6 +11,7 @@ class DatabaseHelper {
   static const usersTable = 'usersTable';
   static const columnUserId = 'userId';
   static const columnUserFullName = 'userFullName';
+  static const columnUserBio = 'userBio';
 
   static const recitersTable = 'recitersTable';
   static const columnReciterId = 'reciterId';
@@ -35,7 +36,7 @@ class DatabaseHelper {
     CREATE TABLE $usersTable (
         $columnUserId TEXT PRIMARY KEY,
         $columnUserFullName TEXT,
-
+        $columnUserBio TEXT)
         ''');
 
     await db.execute('''
@@ -127,6 +128,7 @@ class DatabaseHelper {
     return UserDetails(
       userId: 'failed to retrieve',
       userFullName: 'failed to retrieve',
+      userBio: 'failed to retrieve',
       favouriteReciters: List.empty(),
     );
   }

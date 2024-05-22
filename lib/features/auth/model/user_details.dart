@@ -3,11 +3,13 @@ import 'package:the_quran/features/auth/model/reciter.dart';
 class UserDetails {
   String userId;
   String userFullName;
+  String userBio;
   List<Reciter> favouriteReciters;
 
   UserDetails({
     required this.userId,
     required this.userFullName,
+    required this.userBio,
     required this.favouriteReciters,
   });
 
@@ -15,6 +17,7 @@ class UserDetails {
     return {
       'userId': userId,
       'userFullName': userFullName,
+      'userBio': userBio,
     };
   }
 
@@ -22,7 +25,8 @@ class UserDetails {
     return UserDetails(
       userId: map['userId'],
       userFullName: map['userFullName'],
-      favouriteReciters: List.empty(),
+      userBio: map['userBio'],
+      favouriteReciters: List.empty(growable: true),
     );
   }
 }

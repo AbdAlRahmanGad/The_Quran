@@ -41,19 +41,6 @@ class SignUpScreen extends StatelessWidget {
                 state.isLoading == true) {
               log("loading");
               return const Center(child: CircularProgressIndicator());
-            } else if (state is AuthControllerFeedbackState) {
-              log("success");
-              WidgetsBinding.instance.addPostFrameCallback((_) {
-                AwesomeDialog(
-                  context: context,
-                  dialogType: DialogType.success,
-                  animType: AnimType.rightSlide,
-                  title: 'success',
-                  desc: state.feedbackMessage,
-                  btnCancelOnPress: () {},
-                  btnOkOnPress: () {},
-                ).show();
-              });
             } else if (state is AuthControllerFailureState) {
               log("Failed");
               WidgetsBinding.instance.addPostFrameCallback((_) {

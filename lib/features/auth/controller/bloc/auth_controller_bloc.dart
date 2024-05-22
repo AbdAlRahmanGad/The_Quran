@@ -41,6 +41,7 @@ class AuthControllerBloc
             var userDetails = UserDetails(
               userId: FirebaseRepo().fetch()!.uid,
               userFullName: event.name,
+              userBio: "asd",
               favouriteReciters: List.empty(),
             );
             DatabaseHelper.instance.insertUserDetails(userDetails);

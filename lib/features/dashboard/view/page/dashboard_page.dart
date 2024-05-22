@@ -21,6 +21,7 @@ class DashboardPage extends StatelessWidget {
           UserDetails userDetails = UserDetails(
             userId: '',
             userFullName: '',
+            userBio: '',
             favouriteReciters: List.empty(),
           );
 
