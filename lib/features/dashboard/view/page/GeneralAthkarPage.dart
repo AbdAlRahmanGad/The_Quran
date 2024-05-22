@@ -6,7 +6,7 @@ import 'package:the_quran/features/dashboard/view/page/athkarPage.dart';
 class GeneralPage extends StatelessWidget {
   final List<String> jsonStrings;
 
-  GeneralPage({super.key, required this.jsonStrings});
+  const GeneralPage({super.key, required this.jsonStrings});
 
   @override
   Widget build(BuildContext context) {
