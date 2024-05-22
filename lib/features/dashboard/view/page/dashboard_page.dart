@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:the_quran/features/dashboard/controller/bloc/dashboard_bloc.dart';
-import 'package:the_quran/features/dashboard/view/page/ProfilePage.dart';
+import 'package:the_quran/features/dashboard/view/page/profile_page.dart';
 import 'package:the_quran/features/dashboard/view/page/GeneralAthkarPage.dart';
 import 'package:the_quran/features/dashboard/view/page/reciters_page.dart';
 import 'dart:convert';
