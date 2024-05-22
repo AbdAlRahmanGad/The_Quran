@@ -38,11 +38,11 @@ class DashboardPage extends StatelessWidget {
                 controller: controller.pageController,
                 onPageChanged: controller.onChangeTabIndex,
                 children: [
+                  GeneralPage(jsonStrings: jsonStrings),
                   RecitersPage(
                     userDetails: userDetails,
                     reciters: reciters,
                   ),
-                  GeneralPage(jsonStrings: jsonStrings),
                   ProfilePage(userDetails: userDetails),
                 ],
               ),
@@ -55,14 +55,14 @@ class DashboardPage extends StatelessWidget {
               selectedIndex: controller.selectedTapIndex,
               destinations: const <Widget>[
                 NavigationDestination(
-                  selectedIcon: Icon(Icons.people),
-                  icon: Icon(Icons.people_alt_outlined),
-                  label: 'القراء',
-                ),
-                NavigationDestination(
                   icon: Icon(Icons.home),
                   selectedIcon: Icon(Icons.home),
                   label: 'الأذكار',
+                ),
+                NavigationDestination(
+                  selectedIcon: Icon(Icons.people),
+                  icon: Icon(Icons.people_alt_outlined),
+                  label: 'القراء',
                 ),
                 NavigationDestination(
                   selectedIcon: Icon(Icons.my_library_books_sharp),
